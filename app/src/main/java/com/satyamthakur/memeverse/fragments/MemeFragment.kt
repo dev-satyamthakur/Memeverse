@@ -31,7 +31,6 @@ class MemeFragment : Fragment(R.layout.fragment_meme) {
         recyclerView.layoutManager = LinearLayoutManager(context)
         getMemeNow()
 
-
     }
 
         private fun getMemeNow() {
