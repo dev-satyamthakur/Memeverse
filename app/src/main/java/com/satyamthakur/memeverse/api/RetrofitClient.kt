@@ -1,4 +1,4 @@
-package com.satyamthakur.memeverse
+package com.satyamthakur.memeverse.api
 
 import okhttp3.OkHttpClient
 import retrofit2.Retrofit

@@ -1,6 +1,6 @@
-package com.satyamthakur.memeverse
+package com.satyamthakur.memeverse.models
 
-data class MemeResponse(
+data class Meme(
     val author: String,
     val nsfw: Boolean,
     val postLink: String,
