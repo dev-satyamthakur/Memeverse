@@ -9,6 +9,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.satyamthakur.memeverse.R
+import com.satyamthakur.memeverse.Utils.MarginItemDecoration
 import com.satyamthakur.memeverse.adapters.MemeAdapter
 import com.satyamthakur.memeverse.api.RetrofitClient
 import com.satyamthakur.memeverse.databinding.ActivityMainBinding
@@ -29,6 +30,9 @@ class MemeFragment : Fragment(R.layout.fragment_meme) {
 
         recyclerView = view.findViewById(R.id.memeRecyclerView)
         recyclerView.layoutManager = LinearLayoutManager(context)
+        recyclerView.addItemDecoration(
+            MarginItemDecoration(24)
+        )
         getMemeNow()
 
     }

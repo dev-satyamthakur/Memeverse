@@ -10,18 +10,23 @@
     <com.google.android.material.appbar.AppBarLayout
         android:id="@+id/memeAppBarLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:overScrollMode="never">
 
         <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
+            android:overScrollMode="never"
+            app:layout_scrollEffect="none"
             app:layout_scrollFlags="scroll">
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/playfair_display_black"
                 android:text="Memeverse"
-                android:textSize="24dp"/>
+                android:textColor="@color/black"
+                android:textSize="30sp" />
 
         </androidx.appcompat.widget.Toolbar>
 
