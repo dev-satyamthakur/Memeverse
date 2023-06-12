@@ -22,15 +22,16 @@ import kotlinx.coroutines.withContext
 
 class MemeFragment : Fragment(R.layout.fragment_meme) {
 
-    lateinit var recyclerView: RecyclerView
     lateinit var memList: List<Meme>
+    lateinit var binding: FragmentMemeBinding
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        binding = FragmentMemeBinding.bind(view)
 
-        recyclerView = view.findViewById(R.id.memeRecyclerView)
-        recyclerView.layoutManager = LinearLayoutManager(context)
-        recyclerView.addItemDecoration(
+        binding.memeRecyclerView.layoutManager = LinearLayoutManager(context)
+        // item decorator for even margins of items in recyclerview
+        binding.memeRecyclerView.addItemDecoration(
             MarginItemDecoration(24)
         )
         getMemeNow()
@@ -49,7 +50,8 @@ class MemeFragment : Fragment(R.layout.fragment_meme) {
                     // get back on UI thread to update recyclerView and adapters
                     withContext(Dispatchers.Main) {
                        memList = memesres!!.memes
-                        recyclerView.adapter = MemeAdapter(memList)
+                        binding.memeProgressBar.visibility = View.GONE
+                        binding.memeRecyclerView.adapter = MemeAdapter(memList)
                     }
 
                 } else {

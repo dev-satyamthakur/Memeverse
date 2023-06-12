@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
 import com.satyamthakur.memeverse.R
 import com.satyamthakur.memeverse.models.Meme
@@ -33,8 +34,16 @@ class MemeAdapter(var memes: List<Meme>) :
     override fun getItemCount(): Int = memes.count()
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
+
+        // Setting up circular progress bar for glide placeholder
+        val circularProgressDrawable = CircularProgressDrawable(context)
+        circularProgressDrawable.strokeWidth = 10f
+        circularProgressDrawable.centerRadius = 60f
+        circularProgressDrawable.start()
+
         Glide.with(context)
             .load(memes[position].url)
+            .placeholder(circularProgressDrawable)
             .into(holder.img)
 
         holder.title.text = memes[position].title
