@@ -23,6 +23,7 @@ import kotlinx.coroutines.withContext
 class DankFragment : Fragment(R.layout.fragment_dank) {
 
     private var memList = mutableListOf<Meme>()
+    private var _binding: FragmentDankBinding? = null
     private lateinit var binding: FragmentDankBinding
 
     // for infinite scroll
@@ -95,6 +96,11 @@ class DankFragment : Fragment(R.layout.fragment_dank) {
                 Log.e("RETROFIT_LOG", e.message.toString())
             }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 }

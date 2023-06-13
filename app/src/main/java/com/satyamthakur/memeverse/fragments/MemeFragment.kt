@@ -20,8 +20,8 @@ import kotlinx.coroutines.withContext
 class MemeFragment : Fragment(R.layout.fragment_meme) {
 
     var memList = mutableListOf<Meme>()
-    lateinit var binding: FragmentMemeBinding
-
+    private var _binding: FragmentMemeBinding? = null
+    private lateinit var binding: FragmentMemeBinding
     // for infinite scroll
     var isLoading = false
 
@@ -31,7 +31,8 @@ class MemeFragment : Fragment(R.layout.fragment_meme) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        binding = FragmentMemeBinding.bind(view)
+        _binding = FragmentMemeBinding.bind(view)
+        binding = _binding!!
 
         var layoutManager = LinearLayoutManager(context)
         binding.memeRecyclerView.layoutManager = layoutManager
@@ -92,6 +93,11 @@ class MemeFragment : Fragment(R.layout.fragment_meme) {
                 Log.e("RETROFIT_LOG", e.message.toString())
             }
         }
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
 }
