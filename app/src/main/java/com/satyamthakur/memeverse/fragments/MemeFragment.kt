@@ -3,7 +3,6 @@ package com.satyamthakur.memeverse.fragments
 import android.os.Bundle
 import android.util.Log
 import android.view.View
-import android.widget.AbsListView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -61,6 +60,7 @@ class MemeFragment : Fragment(R.layout.fragment_meme) {
                 }
             }
         })
+
 
     }
 

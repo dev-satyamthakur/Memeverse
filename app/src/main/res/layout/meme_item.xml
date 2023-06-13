@@ -13,10 +13,11 @@
         android:id="@+id/meme_user_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
+        android:clickable="true"
         android:fontFamily="@font/open_sans_bold"
         android:text="Jammy"
         android:textColor="@color/primaryText"
-        android:textSize="16sp"
+        android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -29,12 +30,12 @@
         android:fontFamily="@font/open_sans_regular"
         android:text="This is some sample text"
         android:textColor="@color/secondaryText"
-        android:textSize="12sp"
+        android:textSize="14sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/meme_user_name" />
 
-    <ImageView
+    <com.jsibbold.zoomage.ZoomageView
         android:id="@+id/meme_image"
         android:layout_width="match_parent"
         android:layout_height="300dp"
@@ -43,29 +44,47 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/meme_user_title"
-        tools:srcCompat="@tools:sample/avatars" />
+        android:src="@color/primaryDark"
+        app:zoomage_restrictBounds="false"
+        app:zoomage_animateOnReset="true"
+        app:zoomage_autoResetMode="ALWAYS"
+        app:zoomage_autoCenter="true"
+        app:zoomage_zoomable="true"
+        app:zoomage_translatable="true"
+        app:zoomage_minScale="0.6"
+        app:zoomage_maxScale="8"/>
 
     <ImageView
         android:id="@+id/imageView"
-        android:layout_height="16dp"
-        android:layout_marginTop="8dp"
-        android:layout_width="16dp"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/meme_image"
-        app:srcCompat="@drawable/upvote_icon" />
+        app:srcCompat="@drawable/upvote_button_outlined" />
 
     <TextView
-        android:fontFamily="@font/open_sans_regular"
         android:id="@+id/meme_total_upvotes"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
-        android:layout_width="wrap_content"
+        android:fontFamily="@font/open_sans_regular"
         android:text="1200"
         android:textColor="@color/black"
-        android:textSize="12sp"
+        android:textSize="14sp"
         app:layout_constraintBottom_toBottomOf="@+id/imageView"
         app:layout_constraintStart_toEndOf="@+id/imageView"
         app:layout_constraintTop_toTopOf="@+id/imageView" />
+
+    <ImageView
+        android:id="@+id/meme_share_button"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_marginTop="16dp"
+        android:clickable="true"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/meme_image"
+        app:srcCompat="@drawable/share_button_outlined" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 
