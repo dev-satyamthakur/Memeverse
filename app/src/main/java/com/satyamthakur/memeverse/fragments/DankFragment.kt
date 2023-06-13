@@ -39,7 +39,7 @@ class DankFragment : Fragment(R.layout.fragment_dank) {
         var layoutManager = LinearLayoutManager(context)
         binding.dankMemeRecyclerView.layoutManager = layoutManager
 
-        dankMemeAdapter = MemeAdapter(memList)
+        dankMemeAdapter = MemeAdapter(requireContext(), memList)
 
         binding.dankMemeRecyclerView.adapter = dankMemeAdapter
         // item decorator for even margins of items in recyclerview

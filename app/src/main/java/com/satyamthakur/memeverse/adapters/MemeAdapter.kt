@@ -13,10 +13,8 @@ import com.bumptech.glide.Glide
 import com.satyamthakur.memeverse.R
 import com.satyamthakur.memeverse.models.Meme
 
-class MemeAdapter(var memes: List<Meme>) :
+class MemeAdapter(var context: Context, var memes: List<Meme>) :
     RecyclerView.Adapter<MemeAdapter.MyViewHolder>() {
-
-    lateinit var context: Context
 
     inner class MyViewHolder(v: View) : RecyclerView.ViewHolder(v) {
         var img = v.findViewById<ImageView>(R.id.meme_image)
@@ -27,7 +25,6 @@ class MemeAdapter(var memes: List<Meme>) :
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
-        context = parent.context
         val view = LayoutInflater.from(context).inflate(R.layout.meme_item, parent, false)
         return MyViewHolder(view)
     }

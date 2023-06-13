@@ -36,7 +36,7 @@ class MemeFragment : Fragment(R.layout.fragment_meme) {
         var layoutManager = LinearLayoutManager(context)
         binding.memeRecyclerView.layoutManager = layoutManager
 
-        mAdapter = MemeAdapter(memList)
+        mAdapter = MemeAdapter(requireContext(), memList)
 
         binding.memeRecyclerView.adapter = mAdapter
         // item decorator for even margins of items in recyclerview
