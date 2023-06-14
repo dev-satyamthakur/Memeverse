@@ -7,7 +7,6 @@ import android.util.Log
 import android.view.View
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
-import coil.load
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.satyamthakur.memeverse.api.RetrofitClient
 import com.satyamthakur.memeverse.databinding.ActivityMainBinding
