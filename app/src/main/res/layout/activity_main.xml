@@ -26,7 +26,7 @@
         style="@style/Widget.MaterialComponents.BottomNavigationView.Colored"
         app:backgroundTint="#FFFFFF"
         app:itemIconTint="@drawable/bottom_nav_item_color"
-        app:itemRippleColor="@color/primaryText"
+        app:itemRippleColor="#9E9E9E"
         app:itemTextColor="@drawable/bottom_nav_item_color"
         app:labelVisibilityMode="selected"
         app:layout_constraintBottom_toBottomOf="parent"
