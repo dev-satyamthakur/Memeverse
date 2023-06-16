@@ -15,11 +15,6 @@
         android:name="com.satyamthakur.memeverse.fragments.DankFragment"
         android:label="fragment_dank"
         tools:layout="@layout/fragment_dank" />
-    <fragment
-        android:id="@+id/indianMemeFragment"
-        android:name="com.satyamthakur.memeverse.fragments.IndianMemeFragment"
-        android:label="fragment_dank"
-        tools:layout="@layout/fragment_indian_meme" />
 
 
 </navigation>
