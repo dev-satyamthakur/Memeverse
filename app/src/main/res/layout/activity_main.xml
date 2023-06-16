@@ -33,7 +33,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:backgroundTint="@color/white"
-        app:itemRippleColor="@color/seconday"
+        app:itemRippleColor="#9C9C9C"
         app:layout_constraintBottom_toBottomOf="parent"
         app:menu="@menu/menu_bottom_nav"
         app:itemTextColor="@drawable/bottom_nav_item_color"
