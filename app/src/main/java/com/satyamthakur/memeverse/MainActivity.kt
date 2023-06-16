@@ -35,6 +35,20 @@ class MainActivity : AppCompatActivity() {
         // Hook your navigation controller to bottom navigation view
         navView.setupWithNavController(navController)
 
+        binding.bottomNavView.setOnItemReselectedListener {
+            val fragment = when (it.itemId) {
+                R.id.memeFragment -> {
+                    val recyclerView = findViewById<RecyclerView>(R.id.memeRecyclerView)
+                    recyclerView.smoothScrollToPosition(0);
+                }
+                R.id.dankFragment -> {
+                    val recyclerView = findViewById<RecyclerView>(R.id.dankMemeRecyclerView)
+                    recyclerView.smoothScrollToPosition(0);
+                }
+                else -> {}
+            }
+            true
+        }
     }
 //
 //    fun sendText(message: String) {
