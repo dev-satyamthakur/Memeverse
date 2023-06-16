@@ -15,8 +15,11 @@ import com.satyamthakur.memeverse.api.RetrofitClient
 import com.satyamthakur.memeverse.databinding.FragmentDankBinding
 import com.satyamthakur.memeverse.databinding.FragmentMemeBinding
 import com.satyamthakur.memeverse.models.Meme
+import com.simform.refresh.SSPullToRefreshLayout
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -36,6 +39,8 @@ class DankFragment : Fragment(R.layout.fragment_dank) {
         super.onViewCreated(view, savedInstanceState)
 
         binding = FragmentDankBinding.bind(view)
+
+        setupSSPullRefreshLayout()
 
         var layoutManager = LinearLayoutManager(context)
         binding.dankMemeRecyclerView.layoutManager = layoutManager
@@ -66,6 +71,47 @@ class DankFragment : Fragment(R.layout.fragment_dank) {
         })
 
 
+    }
+
+    private fun setupSSPullRefreshLayout() {
+        binding.ssPullRefreshDank.setLottieAnimation("loading_animation.json")
+        binding.ssPullRefreshDank.setRepeatMode(SSPullToRefreshLayout.RepeatMode.REPEAT)
+        binding.ssPullRefreshDank.setRepeatCount(SSPullToRefreshLayout.RepeatCount.INFINITE)
+
+        binding.ssPullRefreshDank.setOnRefreshListener {
+            CoroutineScope(Dispatchers.Main).launch {
+                delay(1000)
+
+                // Fetch New Memes
+                withContext(Dispatchers.IO) {
+                    isLoading = true
+                    try {
+                        val response = RetrofitClient.apiService.getMemes()
+                        if (response.isSuccessful) {
+                            val memesres = response.body()
+//                          Log.d("RETROFIT_LOG", memesres.toString())
+                            Log.d("RETROFIT_LOG", memesres!!.memes.toString())
+
+                            // get back on UI thread to update recyclerView and adapters
+                            withContext(Dispatchers.Main) {
+                                memList.clear()
+                                memList.addAll(memesres!!.memes as MutableList<Meme>)
+
+                                dankMemeAdapter.notifyDataSetChanged()
+                                isLoading = false
+                            }
+
+                        } else {
+                            Log.e("RETROFIT_LOG", response.code().toString())
+                        }
+                    } catch (e: Exception) {
+                        Log.e("RETROFIT_LOG", e.message.toString())
+                    }
+                }
+
+                binding.ssPullRefreshDank.setRefreshing(false)
+            }
+        }
     }
 
     private fun getMemeNow() {
