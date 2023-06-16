@@ -11,5 +11,10 @@
         android:icon="@drawable/ic_dank_meme"
         android:title="Dank" />
 
+    <item
+        android:id="@id/indianMemeFragment"
+        android:icon="@drawable/ic_indian_meme"
+        android:title="Indian" />
+
 
 </menu>
