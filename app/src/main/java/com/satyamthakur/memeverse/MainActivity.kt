@@ -7,6 +7,7 @@ import android.util.Log
 import android.view.View
 import androidx.navigation.findNavController
 import androidx.navigation.ui.setupWithNavController
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.satyamthakur.memeverse.api.RetrofitClient
 import com.satyamthakur.memeverse.databinding.ActivityMainBinding
@@ -34,6 +35,20 @@ class MainActivity : AppCompatActivity() {
         // Hook your navigation controller to bottom navigation view
         navView.setupWithNavController(navController)
 
+        binding.bottomNavView.setOnItemReselectedListener {
+            val fragment = when (it.itemId) {
+                R.id.memeFragment -> {
+                    val recyclerView = findViewById<RecyclerView>(R.id.memeRecyclerView)
+                    recyclerView.smoothScrollToPosition(0);
+                }
+                R.id.dankFragment -> {
+                    val recyclerView = findViewById<RecyclerView>(R.id.dankMemeRecyclerView)
+                    recyclerView.smoothScrollToPosition(0);
+                }
+                else -> {}
+            }
+            true
+        }
     }
 //
 //    fun sendText(message: String) {

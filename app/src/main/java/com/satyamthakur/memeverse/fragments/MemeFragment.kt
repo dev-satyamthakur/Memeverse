@@ -3,6 +3,7 @@ package com.satyamthakur.memeverse.fragments
 import android.os.Bundle
 import android.util.Log
 import android.view.View
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -12,8 +13,11 @@ import com.satyamthakur.memeverse.adapters.MemeAdapter
 import com.satyamthakur.memeverse.api.RetrofitClient
 import com.satyamthakur.memeverse.databinding.FragmentMemeBinding
 import com.satyamthakur.memeverse.models.Meme
+import com.simform.refresh.SSPullToRefreshLayout
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
@@ -33,6 +37,8 @@ class MemeFragment : Fragment(R.layout.fragment_meme) {
 
         _binding = FragmentMemeBinding.bind(view)
         binding = _binding!!
+
+        setupSSPullRefreshLayout()
 
         var layoutManager = LinearLayoutManager(context)
         binding.memeRecyclerView.layoutManager = layoutManager
@@ -63,6 +69,47 @@ class MemeFragment : Fragment(R.layout.fragment_meme) {
         })
 
 
+    }
+
+    private fun setupSSPullRefreshLayout() {
+        binding.ssPullRefresh.setLottieAnimation("loading_animation.json")
+        binding.ssPullRefresh.setRepeatMode(SSPullToRefreshLayout.RepeatMode.REPEAT)
+        binding.ssPullRefresh.setRepeatCount(SSPullToRefreshLayout.RepeatCount.INFINITE)
+
+        binding.ssPullRefresh.setOnRefreshListener {
+            CoroutineScope(Dispatchers.Main).launch {
+                delay(1000)
+
+                // Fetch New Memes
+                withContext(Dispatchers.IO) {
+                    isLoading = true
+                    try {
+                        val response = RetrofitClient.apiService.getMemes()
+                        if (response.isSuccessful) {
+                            val memesres = response.body()
+//                          Log.d("RETROFIT_LOG", memesres.toString())
+                            Log.d("RETROFIT_LOG", memesres!!.memes.toString())
+
+                            // get back on UI thread to update recyclerView and adapters
+                            withContext(Dispatchers.Main) {
+                                memList.clear()
+                                memList.addAll(memesres!!.memes as MutableList<Meme>)
+
+                                mAdapter.notifyDataSetChanged()
+                                isLoading = false
+                            }
+
+                        } else {
+                            Log.e("RETROFIT_LOG", response.code().toString())
+                        }
+                    } catch (e: Exception) {
+                        Log.e("RETROFIT_LOG", e.message.toString())
+                    }
+                }
+
+                binding.ssPullRefresh.setRefreshing(false)
+            }
+        }
     }
 
     private fun getMemeNow() {
